@@ -476,9 +476,7 @@ export default function RefundsPage() {
                     <th className="px-6 py-4 text-right text-xs font-medium uppercase tracking-wider">
                       Amount
                     </th>
-                    <th className="px-6 py-4 text-center text-xs font-medium uppercase tracking-wider">
-                      Status
-                    </th>
+                    
                     <th className="px-6 py-4 text-center text-xs font-medium uppercase tracking-wider">
                       Date
                     </th>
@@ -524,19 +522,7 @@ export default function RefundsPage() {
                             Rs. {Number(row.amount).toLocaleString("en-PK")}
                           </span>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-center">
-                          <span
-                            className={`inline-flex px-2.5 py-1 rounded-full text-xs font-medium ${
-                              row.status === "Approved"
-                                ? "bg-green-100 text-green-800"
-                                : row.status === "Rejected"
-                                ? "bg-red-100 text-red-800"
-                                : "bg-yellow-100 text-yellow-800"
-                            }`}
-                          >
-                            {row.status}
-                          </span>
-                        </td>
+                        
                         <td className="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
                           {new Date(row.refundDate).toLocaleDateString("en-PK")}
                         </td>
