@@ -31,7 +31,7 @@ export default function AccountingPageUI() {
       try {
         const res = await fetch("/api/customers");
         const data = await res.json();
-        setCustomers(["All", ...data.map(c => c.name)]);
+        setCustomers([ ...data.map(c => c.name)]);
       } catch (err) {
         console.error(err);
         toast.error("Failed to load customers!");
@@ -104,7 +104,7 @@ const filteredDues = pendingDues.filter(rec => {
         <div className="p-6 space-y-6 h-[100vh] overflow-auto">
           <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
             <div>
-              <h1 className="text-2xl font-bold text-[#003f20]">Accounting</h1>
+              <h1 className="text-2xl font-bold text-[#003f20]">Reports</h1>
               <p className="text-gray-500">Sales report & pending dues</p>
             </div>
 
@@ -151,12 +151,12 @@ const filteredDues = pendingDues.filter(rec => {
             <table className="min-w-full border-collapse">
               <thead className="bg-[#003f20] text-white">
                 <tr>
-                  <th className="p-3 text-left text-sm font-semibold">Code</th>
-                  <th className="p-3 text-left text-sm font-semibold">Bill To</th>
-                  <th className="p-3 text-left text-sm font-semibold">Date</th>
-                  <th className="p-3 text-left text-sm font-semibold">Total Items</th>
-                  <th className="p-3 text-left text-sm font-semibold">Rate</th>
-                  <th className="p-3 text-left text-sm font-semibold">Total Amount</th>
+                  <th className="p-3 text-left text-sm font-semibold whitespace-nowrap">Code</th>
+                  <th className="p-3 text-left text-sm font-semibold whitespace-nowrap">Bill To</th>
+                  <th className="p-3 text-left text-sm font-semibold whitespace-nowrap">Date</th>
+                  <th className="p-3 text-left text-sm font-semibold whitespace-nowrap">Total Items</th>
+                  <th className="p-3 text-left text-sm font-semibold whitespace-nowrap">Rate</th>
+                  <th className="p-3 text-left text-sm font-semibold whitespace-nowrap">Total Amount</th>
                 </tr>
               </thead>
               <tbody>

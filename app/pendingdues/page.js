@@ -319,7 +319,7 @@ export default function PendingDuesPage() {
       </div>
 
       {/* 🟢 Edit Partial Payment Dialog */}
-      <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
+      <Dialog  open={editDialogOpen} onOpenChange={setEditDialogOpen}>
         <DialogContent className="max-w-md rounded-2xl">
           <DialogHeader>
             <DialogTitle className="text-[#003f20] text-lg font-semibold">

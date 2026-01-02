@@ -444,338 +444,422 @@ useEffect(() => {
     <main className="flex bg-gray-50 min-h-screen">
   <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
 
-  <div className="flex-1 w-full ">
+  <div className="flex-1 w-full">
     <MobileHeader toggleSidebar={toggleSidebar} />
 
-    <div className="p-4 overflow-scroll h-[100vh] ">
-      {/* --- Main Container --- */}
-      <div className="min-h-screen bg-gray-50 p-6">
-        <div className="max-w-full mx-auto bg-white rounded-2xl shadow-md p-8 border border-gray-100">
-          {/* Header */}
-          <div className="flex justify-between items-start mb-6">
-            {company ? (
-  <div className="flex items-center gap-4 border-b pb-4">
-    {/* 🔹 Company Logo */}
-    {company.logo ? (
-      <img
-        src={company.logo}
-        alt={company.name}
-        className="h-14 w-14 rounded-md object-cover shadow-sm border"
-      />
-    ) : (
-      <div className="h-14 w-14 rounded-md bg-gray-100 flex items-center justify-center text-gray-400 text-xs border">
-        Logo
-      </div>
-    )}
+    <div className="p-4 md:p-6 lg:p-8 overflow-y-auto h-[100vh]">
+      <div className="w-full">
+        <div className="bg-white rounded-3xl shadow-lg border border-gray-200 overflow-hidden">
+          {/* Main Content Padding */}
+          <div className="p-6 md:p-8 lg:p-12">
 
-    {/* 🔹 Company Details */}
-    <div>
-      <h1 className="text-2xl font-semibold text-[#003f20] leading-tight">
-        {company.name || "Company Name"}
-      </h1>
-      <p className="text-sm text-gray-600 leading-snug">
-        {company.address || "Company Address"} <br />
-        <span className="text-gray-500">{company.phone || "Company Phone"}</span>
-      </p>
-    </div>
-  </div>
-) : (
-  <div className="flex items-center gap-2 text-gray-500 border-b pb-4">
-    <div className="h-5 w-5 border-2 border-[#003f20] border-t-transparent rounded-full animate-spin"></div>
-    <p>Loading company info...</p>
-  </div>
-)}
+            {/* Header Section - Modern Layout */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
+              {/* Company Info */}
+              <div className="order-2 lg:order-1">
+                {company ? (
+                  <div className="flex items-start gap-5">
+                    {/* Logo */}
+                    {company.logo ? (
+                      <img
+                        src={company.logo}
+                        alt={company.name}
+                        className="h-20 w-20 rounded-xl object-cover shadow-md border border-gray-200"
+                      />
+                    ) : (
+                      <div className="h-20 w-20 rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-gray-500 font-semibold text-lg border border-gray-300">
+                        {company.name?.charAt(0).toUpperCase() || "C"}
+                      </div>
+                    )}
 
+                    {/* Company Details */}
+                    <div>
+                      <h1 className="text-3xl max-md:text-xl font-bold text-[#003f20] mb-2">
+                        {company.name || "Company Name"}
+                      </h1>
+                      <p className="text-gray-600 leading-relaxed">
+                        {company.address || "Company Address"}
+                        <br />
+                        <span className="text-gray-500">Phone: {company.phone || "Company Phone"}</span>
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-3 text-gray-500">
+                    <div className="h-6 w-6 border-3 border-[#003f20] border-t-transparent rounded-full animate-spin"></div>
+                    <p className="font-medium">Loading company info...</p>
+                  </div>
+                )}
+              </div>
 
-            <div className="text-right">
-              <h2 className="text-3xl font-bold text-[#003f20] tracking-wide">
-                INVOICE
-              </h2>
-              <div className="mt-4 space-y-2 text-sm">
-                
-               <div className="flex justify-between gap-2">
-  <label className="text-gray-600 w-28">Date</label>
-  <input
-    type="date"
-    value={form.date}
-    onChange={(e) => updateForm("date", e.target.value)}
-    className="w-40 border rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-[#005f33]"
-  />
-</div>
-<div className="flex justify-between gap-2">
-  <label className="text-gray-600 w-28">Payment Terms</label>
-  <input
-    value={form.paymentTerms}
-    onChange={(e) => updateForm("paymentTerms", e.target.value)}
-    placeholder="Net 7 / Net 30"
-    className="w-40 border rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-[#005f33]"
-  />
-</div>
+              {/* Invoice Title & Details */}
+              <div className="order-1 lg:order-2 text-center lg:text-right">
+                <h2 className="text-5xl max-md:text-2xl max-md:font-semibold bold text-[#003f20] tracking-tight mb-8">
+                  INVOICE
+                </h2>
 
-<div className="flex justify-between gap-2">
-  <label className="text-gray-600 w-28">Phone Number</label>
-  <input
-    type="text"
-    value={form.poNumber}
-    onChange={(e) => updateForm("poNumber", e.target.value)}
-    placeholder="Phone Number"
-    className="w-40 border rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-[#005f33]"
-  />
-</div>
+                <div className="space-y-4 text-sm bg-gray-50 p-6 rounded-2xl inline-block lg:block">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-gray-600 font-medium mb-1">Invoice Date</label>
+                      <input
+                        type="date"
+                        value={form.date}
+                        onChange={(e) => updateForm("date", e.target.value)}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#005f33] focus:border-transparent"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-gray-600 font-medium mb-1">Due Date</label>
+                      <input
+                        type="date"
+                        value={form.dueDate}
+                        onChange={(e) => updateForm("dueDate", e.target.value)}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#005f33] focus:border-transparent"
+                      />
+                    </div>
+                  </div>
 
-                
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-gray-600 font-medium mb-1">Payment Terms</label>
+                      <input
+                        value={form.paymentTerms}
+                        onChange={(e) => updateForm("paymentTerms", e.target.value)}
+                        placeholder="e.g. Net 30"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#005f33]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-gray-600 font-medium mb-1">PO Number</label>
+                      <input
+                        type="text"
+                        value={form.poNumber}
+                        onChange={(e) => updateForm("poNumber", e.target.value)}
+                        placeholder="Purchase Order #"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#005f33]"
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Bill To / Ship To */}
-          <div className="grid grid-cols-2 gap-6 mt-6">
-            <div className="relative">
-  <label className="block text-sm font-medium text-gray-700 mb-1">
-    Bill To
-  </label>
-  <textarea
-    value={form.billTo}
-    onChange={(e) => handleCustomerInput(e.target.value)}
-    placeholder="Client Name, Address, Phone..."
-    className="w-full p-3 border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-[#005f33] resize-none"
-  />
+            {/* Bill To / Ship To */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+              <div className="relative">
+                <label className="block text-lg font-semibold text-gray-800 mb-3">Bill To</label>
+                <textarea
+                  rows="5"
+                  value={form.billTo}
+                  onChange={(e) => handleCustomerInput(e.target.value)}
+                  placeholder="Customer Name&#10;Address Line 1&#10;Address Line 2&#10;Phone & Email"
+                  className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-green-100 focus:border-[#005f33] resize-none text-gray-700"
+                />
 
-  {/* ✅ Suggestions Dropdown */}
-  {showCustomerSuggestions && customerSuggestions.length > 0 && (
-    <ul className="absolute z-10 bg-white border rounded-md shadow-md mt-1 max-h-40 overflow-y-auto w-full">
-      {customerSuggestions.map((c) => (
-        <li
-          key={c._id}
-          onClick={() => handleSelectCustomer(c)}
-          className="p-2 hover:bg-green-50 cursor-pointer flex justify-between"
-        >
-          <span>{c.name}</span>
-          <span className="text-gray-500 text-sm">{c.phone}</span>
-        </li>
-      ))}
-    </ul>
-  )}
-</div>
+                {/* Customer Suggestions */}
+                {showCustomerSuggestions && customerSuggestions.length > 0 && (
+                  <ul className="absolute z-30 w-full mt-2 bg-white border-2 border-gray-200 rounded-xl shadow-xl max-h-60 overflow-y-auto">
+                    {customerSuggestions.map((c) => (
+                      <li
+                        key={c._id}
+                        onClick={() => handleSelectCustomer(c)}
+                        className="px-5 py-3 hover:bg-green-50 cursor-pointer flex justify-between items-center border-b last:border-b-0"
+                      >
+                        <span className="font-medium">{c.name}</span>
+                        <span className="text-sm text-gray-500">{c.phone}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Ship To (optional)
-              </label>
-              <textarea
-                value={form.shipTo}
-                onChange={(e) => updateForm("shipTo", e.target.value)}
-                placeholder="(optional)"
-                className="w-full p-3 border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-[#005f33] resize-none"
-              />
+              <div>
+                <label className="block text-lg font-semibold text-gray-800 mb-3">Ship To <span className="text-gray-500 font-normal text-sm">(optional)</span></label>
+                <textarea
+                  rows="5"
+                  value={form.shipTo}
+                  onChange={(e) => updateForm("shipTo", e.target.value)}
+                  placeholder="Shipping Address (if different)"
+                  className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-green-100 focus:border-[#005f33] resize-none text-gray-700"
+                />
+              </div>
             </div>
-          </div>
 
-          {/* Items */}
-          <div className="mt-8">
-  <div className="bg-[#003f20] text-white rounded-t-md p-3 grid grid-cols-12 gap-2 text-sm font-semibold">
-    <div className="col-span-7">Item</div>
-    <div className="col-span-2 text-center">Qty</div>
-    <div className="col-span-2 text-center">Rate</div>
-    <div className="col-span-1 text-right">Amount</div>
+            {/* Items Table - Enhanced Design */}
+            <div className="mb-10">
+  {/* Section Header */}
+  <div className="bg-gradient-to-r from-[#003f20] to-[#005f33] text-white rounded-t-2xl px-6 py-4">
+    <h3 className="text-xl font-bold">Items</h3>
   </div>
 
-   <div className="border border-t-0 rounded-b-md p-4 space-y-3 bg-white relative">
-      {items.map((it) => (
-        <div key={it.id} className="grid grid-cols-12 gap-2 items-start border-b pb-2 relative">
-          {/* 🟢 ITEM INPUT WITH SUGGESTIONS */}
-          <div className="col-span-7 relative">
-            <input
-              value={it.description}
-              onChange={(e) => handleDescriptionInput(it.id, e.target.value)}
-              placeholder="Item or service description..."
-              className="w-full p-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-[#005f33]"
-            />
+  <div className="border-2 border-t-0 border-gray-200 rounded-b-2xl overflow-hidden">
+    <div className="overflow-x-auto min-h-60">
+      {/* Desktop Table View */}
+      <table className="w-full hidden md:table">
+        <thead className="bg-gray-50">
+          <tr>
+            <th className="text-left px-6 py-4 font-semibold text-gray-700">Description</th>
+            <th className="text-center px-6 py-4 font-semibold text-gray-700 w-28">Qty</th>
+            <th className="text-center px-6 py-4 font-semibold text-gray-700 w-32">Rate</th>
+            <th className="text-right px-6 py-4 font-semibold text-gray-700 w-32">Amount</th>
+            <th className="w-12 px-4"></th>
+          </tr>
+        </thead>
+        <tbody className="divide-y  divide-gray-200">
+          {items.map((it) => (
+            <tr key={it.id}>
+              <td className="px-6 py-5 relative">
+                <div className="relative">
+                  <input
+                    value={it.description}
+                    onChange={(e) => handleDescriptionInput(it.id, e.target.value)}
+                    placeholder="Item description..."
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#005f33] focus:border-transparent"
+                  />
+                  {/* Desktop Suggestions */}
+                  {showSuggestions[it.id] && searchSuggestions[it.id]?.length > 0 && (
+                    <ul className="absolute z-30 left-6 right-6 mt-2 bg-white border-2 border-gray-200 rounded-xl shadow-xl max-h-60 overflow-y-auto">
+                      {searchSuggestions[it.id].map((product) => (
+                        <li
+                          key={product._id}
+                          onClick={() => handleSelectSuggestion(it.id, product)}
+                          className="px-5 py-3 hover:bg-green-50 cursor-pointer flex justify-between border-b last:border-b-0"
+                        >
+                          <span className="font-medium">{product.name}</span>
+                          <span className="text-sm text-gray-500">Rs. {product.purchasePrice}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </td>
+              <td className="px-6 py-4 text-center">
+                <input
+                  type="number"
+                  value={it.qty}
+                  onChange={(e) => updateItem(it.id, "qty", e.target.value)}
+                  className="w-24 px-4 py-3 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-[#005f33]"
+                />
+              </td>
+              <td className="px-6 py-4 text-center">
+                <div className="flex items-center justify-center gap-2">
+                  <span className="text-gray-600">Rs.</span>
+                  <input
+                    type="number"
+                    value={it.rate}
+                    onChange={(e) => updateItem(it.id, "rate", e.target.value)}
+                    className="w-32 px-4 py-3 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-[#005f33]"
+                  />
+                </div>
+              </td>
+              <td className="px-6 py-4 text-right font-semibold text-gray-800">
+                Rs. {Number(it.amount || 0).toLocaleString("en-PK", { minimumFractionDigits: 2 })}
+              </td>
+              <td className="px-4 py-4 text-center">
+                <button
+                  onClick={() => removeItem(it.id)}
+                  className="text-red-500 hover:text-red-700 transition"
+                >
+                  <Trash2 size={20} />
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
-            {/* ✅ Suggestions Dropdown */}
-            {showSuggestions[it.id] && searchSuggestions[it.id]?.length > 0 && (
-              <ul className="absolute z-10 bg-white border rounded-md shadow-md mt-1 max-h-40 overflow-y-auto w-full">
-                {searchSuggestions[it.id].map((product) => (
-                  <li
-                    key={product._id}
-                    onClick={() => handleSelectSuggestion(it.id, product)}
-                    className="p-2 hover:bg-green-50 cursor-pointer flex justify-between"
-                  >
-                    <span>{product.name}</span>
-                    <span className="text-gray-500 text-sm">Rs. {product.purchasePrice}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
+      {/* Mobile Card View */}
+      <div className="md:hidden divide-y divide-gray-200">
+        {items.map((it, index) => (
+          <div key={it.id} className="p-6 space-y-5 relative bg-white">
+            {/* Item Header */}
+            <div className="flex justify-between items-start">
+              <h4 className="font-semibold text-gray-800">Item {index + 1}</h4>
+              <button
+                onClick={() => removeItem(it.id)}
+                className="text-red-500 hover:text-red-700 transition"
+              >
+                <Trash2 size={22} />
+              </button>
+            </div>
+
+            {/* Description with Suggestions */}
+            <div className="relative">
+              <label className="block text-sm font-medium text-gray-600 mb-2">Description</label>
+              <input
+                value={it.description}
+                onChange={(e) => handleDescriptionInput(it.id, e.target.value)}
+                placeholder="Item or service description..."
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#005f33] focus:border-transparent text-base"
+              />
+              {/* Mobile Suggestions Dropdown */}
+              {showSuggestions[it.id] && searchSuggestions[it.id]?.length > 0 && (
+                <ul className="absolute z-40 left-0 right-0 mt-2 bg-white border-2 border-gray-200 rounded-xl shadow-2xl max-h-64 overflow-y-auto">
+                  {searchSuggestions[it.id].map((product) => (
+                    <li
+                      key={product._id}
+                      onClick={() => handleSelectSuggestion(it.id, product)}
+                      className="px-5 py-4 hover:bg-green-50 cursor-pointer flex justify-between items-center border-b last:border-b-0"
+                    >
+                      <span className="font-medium">{product.name}</span>
+                      <span className="text-sm text-gray-500">Rs. {product.purchasePrice}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+
+            {/* Qty & Rate Row */}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-600 mb-2">Quantity</label>
+                <input
+                  type="number"
+                  value={it.qty}
+                  onChange={(e) => updateItem(it.id, "qty", e.target.value)}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl text-center focus:ring-2 focus:ring-[#005f33] text-base"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-600 mb-2">Rate (Rs.)</label>
+                <input
+                  type="number"
+                  value={it.rate}
+                  onChange={(e) => updateItem(it.id, "rate", e.target.value)}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl text-center focus:ring-2 focus:ring-[#005f33] text-base"
+                />
+              </div>
+            </div>
+
+            {/* Amount */}
+            <div className="flex justify-between items-center pt-3 border-t border-gray-200">
+              <span className="text-sm font-medium text-gray-600">Amount</span>
+              <span className="text-xl font-bold text-[#003f20]">
+                Rs. {Number(it.amount || 0).toLocaleString("en-PK", { minimumFractionDigits: 2 })}
+              </span>
+            </div>
           </div>
+        ))}
+      </div>
+    </div>
 
-          {/* 🟢 QUANTITY */}
-          <div className="col-span-2">
-            <input
-              type="number"
-              value={it.qty}
-              onChange={(e) => updateItem(it.id, "qty", e.target.value)}
-              className="w-full p-2 border rounded-md text-center focus:ring-1 focus:ring-[#005f33]"
-            />
-          </div>
-
-          {/* 🟢 RATE */}
-          <div className="col-span-2 flex items-center gap-1">
-            <span className="text-sm text-gray-600">Rs.</span>
-            <input
-              type="number"
-              value={it.rate}
-              onChange={(e) => updateItem(it.id, "rate", e.target.value)}
-              className="w-full p-2 border rounded-md focus:ring-1 focus:ring-[#005f33]"
-            />
-          </div>
-
-          {/* 🟢 AMOUNT & DELETE */}
-          <div className="col-span-1 text-right">
-            <span className="font-medium text-gray-700">
-              Rs.{" "}
-              {Number(it.amount || 0).toLocaleString("en-PK", {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })}
-            </span>
-            <button
-              onClick={() => removeItem(it.id)}
-              className="ml-2 text-red-500 hover:text-red-600"
-            >
-              <Trash2 size={16} />
-            </button>
-          </div>
-        </div>
-      ))}
-
+    {/* Add Item Button - Same on both */}
+    <div className="p-6 bg-gray-50 border-t-2 border-gray-200">
       <button
         onClick={addItem}
-        className="mt-3 inline-flex items-center gap-2 border border-green-500 text-green-700 hover:bg-green-50 px-3 py-2 rounded-md transition"
+        className="w-full md:w-auto flex items-center justify-center gap-3 px-8 py-4 bg-[#003f20] text-white font-semibold rounded-xl hover:bg-[#005f33] transition shadow-lg text-lg"
       >
-        <Plus size={14} /> Add Item
-      </button>
-    </div>
-</div>
-
-
-          {/* Notes + Summary */}
-          <div className="mt-8 grid grid-cols-12 gap-6">
-            <div className="col-span-7 space-y-4">
-              <div>
-                <label className="text-sm font-medium text-gray-700 mb-1 block">
-                  Notes
-                </label>
-                <textarea
-                  value={form.notes}
-                  onChange={(e) => updateForm("notes", e.target.value)}
-                  placeholder="Add any relevant notes..."
-                  className="w-full h-24 p-3 border rounded-md focus:ring-1 focus:ring-[#005f33] resize-none"
-                />
-              </div>
-
-              <div>
-                <label className="text-sm font-medium text-gray-700 mb-1 block">
-                  Terms
-                </label>
-                <textarea
-                  value={form.terms}
-                  onChange={(e) => updateForm("terms", e.target.value)}
-                  placeholder="Add payment or delivery terms..."
-                  className="w-full h-24 p-3 border rounded-md focus:ring-1 focus:ring-[#005f33] resize-none"
-                />
-              </div>
-            </div>
-
-            {/* Summary */}
-            {/* Summary */}
-<div className="col-span-5 bg-gray-50 p-5 rounded-lg border border-gray-100">
-  <div className="space-y-3 text-sm">
-    <div className="flex justify-between">
-      <span>Subtotal</span>
-      <span className="font-medium">
-        Rs. {Number(subtotal).toLocaleString("en-PK", { minimumFractionDigits: 2 })}
-      </span>
-    </div>
-
-    <div className="flex justify-between items-center">
-      <label>Tax (%)</label>
-      <input
-        type="number"
-        value={taxPercent}
-        onChange={(e) => setTaxPercent(e.target.value)}
-        className="w-24 p-2 border rounded-md text-center focus:ring-1 focus:ring-[#005f33]"
-      />
-    </div>
-
-    <div className="flex justify-between items-center">
-      <label>Discount (%)</label>
-      <input
-        type="number"
-        value={discountPercent}
-        onChange={(e) => setDiscountPercent(e.target.value)}
-        className="w-24 p-2 border rounded-md text-center focus:ring-1 focus:ring-[#005f33]"
-      />
-    </div>
-
-    <div className="flex justify-between items-center">
-      <label>Shipping (Rs)</label>
-      <input
-        type="number"
-        value={shipping}
-        onChange={(e) => setShipping(e.target.value)}
-        className="w-28 p-2 border rounded-md text-center focus:ring-1 focus:ring-[#005f33]"
-      />
-    </div>
-
-    <div className="border-t border-gray-200 pt-3 mt-3 space-y-2">
-      <div className="flex justify-between font-semibold text-gray-700">
-        <span>Total</span>
-        <span>
-          Rs. {Number(total).toLocaleString("en-PK", { minimumFractionDigits: 2 })}
-        </span>
-      </div>
-
-      <div className="flex justify-between items-center">
-        <label>Amount Paid</label>
-        <input
-          type="number"
-          min={0}
-          value={amountPaid}
-          onChange={(e) => setAmountPaid(e.target.value)}
-          className="w-28 p-2 border rounded-md text-center focus:ring-1 focus:ring-[#005f33]"
-        />
-      </div>
-
-      <div className="flex justify-between font-semibold text-gray-800">
-  <span>Balance Due</span>
-  <span>
-    Rs.{" "}
-    {Number(balanceDue).toLocaleString("en-PK", {
-      minimumFractionDigits: 2,
-    })}
-  </span>
-</div>
-<div className="flex justify-between gap-2">
-  <label className="text-gray-600 w-28">Due Date</label>
-  <input
-    type="date"
-    value={form.dueDate}
-    onChange={(e) => updateForm("dueDate", e.target.value)}
-    className="w-40 border rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-[#005f33]"
-  />
-</div>
-
-
-      <button
-        onClick={handleDownloadPDF}
-        className="mt-4 w-full flex items-center justify-center gap-2 bg-[#003f20] text-white py-2 rounded-md hover:bg-[#005f33] transition"
-      >
-        <Download size={16} /> Download PDF
+        <Plus size={22} />
+        Add New Item
       </button>
     </div>
   </div>
 </div>
+
+            {/* Notes, Terms & Summary */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Notes & Terms */}
+              <div className="lg:col-span-2 space-y-8">
+                <div>
+                  <label className="block text-lg font-semibold text-gray-800 mb-3">Notes</label>
+                  <textarea
+                    rows="4"
+                    value={form.notes}
+                    onChange={(e) => updateForm("notes", e.target.value)}
+                    placeholder="Any additional notes for the customer..."
+                    className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-green-100 focus:border-[#005f33] resize-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-lg font-semibold text-gray-800 mb-3">Terms & Conditions</label>
+                  <textarea
+                    rows="4"
+                    value={form.terms}
+                    onChange={(e) => updateForm("terms", e.target.value)}
+                    placeholder="Payment terms, late fees, return policy..."
+                    className="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-green-100 focus:border-[#005f33] resize-none"
+                  />
+                </div>
+              </div>
+
+              {/* Summary Box - Highlighted */}
+              <div className="lg:col-span-1">
+                <div className="bg-gradient-to-br from-[#003f20] to-[#005f33] text-white p-8 rounded-3xl shadow-xl">
+                  <h3 className="text-2xl font-bold mb-6">Invoice Summary</h3>
+
+                  <div className="space-y-4 text-lg">
+                    <div className="flex justify-between">
+                      <span>Subtotal</span>
+                      <span className="font-semibold">
+                        Rs. {Number(subtotal).toLocaleString("en-PK", { minimumFractionDigits: 2 })}
+                      </span>
+                    </div>
+
+                    <div className="flex justify-between items-center gap-3">
+                      <label className="text-white/90">Tax (%)</label>
+                      <input
+                        type="number"
+                        value={taxPercent}
+                        onChange={(e) => setTaxPercent(e.target.value)}
+                        className="w-20 px-3 py-2 bg-white/20 backdrop-blur rounded-lg text-white placeholder-white/60 text-center"
+                      />
+                    </div>
+
+                    <div className="flex justify-between items-center gap-3">
+                      <label className="text-white/90">Discount (%)</label>
+                      <input
+                        type="number"
+                        value={discountPercent}
+                        onChange={(e) => setDiscountPercent(e.target.value)}
+                        className="w-20 px-3 py-2 bg-white/20 backdrop-blur rounded-lg text-white placeholder-white/60 text-center"
+                      />
+                    </div>
+
+                    <div className="flex justify-between items-center gap-3">
+                      <label className="text-white/90">Shipping</label>
+                      <input
+                        type="number"
+                        value={shipping}
+                        onChange={(e) => setShipping(e.target.value)}
+                        className="w-24 px-3 py-2 bg-white/20 backdrop-blur rounded-lg text-white text-center"
+                      />
+                    </div>
+
+                    <div className="border-t border-white/30 pt-5 mt-6">
+                      <div className="flex justify-between text-xl font-semibold">
+                        <span>Total</span>
+                        <span>Rs. {Number(total).toLocaleString("en-PK", { minimumFractionDigits: 2 })}</span>
+                      </div>
+
+                      <div className="flex justify-between items-center mt-5 gap-3">
+                        <label className="text-white/90">Paid</label>
+                        <input
+                          type="number"
+                          value={amountPaid}
+                          onChange={(e) => setAmountPaid(e.target.value)}
+                          className="w-28 px-3 py-2 bg-white/20 backdrop-blur rounded-lg text-white text-center"
+                        />
+                      </div>
+
+                      <div className="flex justify-between text-2xl font-semibold mt-6 pt-5 border-t border-white/30">
+                        <span>Balance Due</span>
+                        <span>Rs. {Number(balanceDue).toLocaleString("en-PK", { minimumFractionDigits: 2 })}</span>
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={handleDownloadPDF}
+                      className="mt-8 w-full py-4 bg-white text-[#003f20]  rounded-xl hover:bg-gray-100 transition shadow-lg flex items-center justify-center gap-3 text-lg"
+                    >
+                      <Download size={24} />
+                      Download PDF
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
 
           </div>
         </div>

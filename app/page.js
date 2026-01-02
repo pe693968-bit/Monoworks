@@ -155,131 +155,135 @@ useEffect(() => {
   };
 
   return (
-    <main className="flex bg-gray-100 min-h-screen overflow-hidden">
-      <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
+    <main className="flex flex-col lg:flex-row bg-gray-100 min-h-screen overflow-hidden">
+  <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
 
-      <div className="flex-1 w-full h-[100vh] overflow-y-auto">
-        <MobileHeader toggleSidebar={toggleSidebar} />
+  <div className="flex-1 w-full min-h-screen overflow-y-auto">
+    <MobileHeader toggleSidebar={toggleSidebar} />
 
-        <div className="p-6 space-y-6">
-          <header>
-            <h1 className="text-2xl text-black/70 font-bold">Dashboard</h1>
-            <p className="text-gray-500">
-              {fromDate && toDate
-                ? `Showing Data: ${fromDate} to ${toDate}`
-                : `Today: ${new Date().toLocaleDateString()}`}
-            </p>
-          </header>
+    <div className="p-4 sm:p-6 space-y-6">
+      <header>
+        <h1 className="text-xl sm:text-2xl text-black/70 font-bold">
+          Dashboard
+        </h1>
+        <p className="text-sm sm:text-base text-gray-500">
+          {fromDate && toDate
+            ? `Showing Data: ${fromDate} to ${toDate}`
+            : `Today: ${new Date().toLocaleDateString()}`}
+        </p>
+      </header>
 
-          {/* Date Filters */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-  <div className="flex flex-col gap-1">
-    <label className="text-gray-600 text-sm">From Date</label>
-    <input
-      type="date"
-      value={fromDate}
-      max={new Date().toISOString().split("T")[0]}
-      onChange={(e) => setFromDate(e.target.value)}
-      className="p-2 border rounded-lg"
-    />
-  </div>
-
-  <div className="flex flex-col gap-1">
-    <label className="text-gray-600 text-sm">To Date</label>
-    <input
-      type="date"
-      value={toDate}
-      max={new Date().toISOString().split("T")[0]}
-      onChange={(e) => setToDate(e.target.value)}
-      className="p-2 border rounded-lg"
-    />
-  </div>
-
-  <button
-    onClick={applyCustomDateFilter}
-    className="px-4 py-2 bg-[#003f20] text-white rounded-lg hover:bg-[#005f33] transition mt-6 sm:mt-0"
-  >
-    Apply
-  </button>
-
-  {/* Quick Filters */}
-  <div className="flex gap-2 mt-4 sm:mt-0">
-    {["last7", "last30", "thisMonth"].map((f) => (
-      <button
-        key={f}
-        onClick={() => applyQuickFilter(f)}
-        className={`px-3 py-1 rounded-lg border ${
-          quickFilter === f
-            ? "bg-[#003f20] text-white"
-            : "bg-white text-gray-700"
-        } hover:bg-[#003f20] hover:text-white transition`}
-      >
-        {f === "last7"
-          ? "Last 7 Days"
-          : f === "last30"
-          ? "Last 30 Days"
-          : "This Month"}
-      </button>
-    ))}
-  </div>
-</div>
-
-
-          {/* Cards */}
-          <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-4">
-            <Card
-              title="Total Income"
-              value={`Rs. ${dashboardData.totalIncome.toLocaleString()}`}
-              change="+20.9%"
-              positive
-              loading={loading}
-            />
-            <Card
-              title="Total Expense"
-              value={`Rs. ${dashboardData.totalExpense.toLocaleString()}`}
-              change="-5.2%"
-              positive={false}
-              loading={loading}
-            />
-            <Card
-              title="Balance"
-              value={`Rs. ${dashboardData.balance.toLocaleString()}`}
-              change={dashboardData.balance >= 0 ? "+10%" : "-10%"}
-              positive={dashboardData.balance >= 0}
-              loading={loading}
-            />
-            <Card
-              title="Customers"
-              value={dashboardData.totalCustomers}
-              change="+2.5%"
-              positive
-              loading={loading}
-            />
-            <Card
-              title="Pending Dues"
-              value={`Rs. ${dashboardData.totalPendingDues.toLocaleString()}`}
-              change="-3%"
-              positive={false}
-              loading={loading}
-            />
-            <Card
-              title="Products in Stock"
-              value={dashboardData.totalProducts}
-              change="+5%"
-              positive
-              loading={loading}
-            />
-          </section>
-
-          {/* Chart */}
-          <Chart
-            months={dashboardData.graph.months}
-            income={dashboardData.graph.income}
-            expense={dashboardData.graph.expense}
-            loading={loading}
+      {/* Date Filters */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-end gap-4 flex-wrap">
+        <div className="flex flex-col gap-1 w-full sm:w-auto">
+          <label className="text-gray-600 text-sm">From Date</label>
+          <input
+            type="date"
+            value={fromDate}
+            max={new Date().toISOString().split("T")[0]}
+            onChange={(e) => setFromDate(e.target.value)}
+            className="p-2 border rounded-lg w-full"
           />
         </div>
+
+        <div className="flex flex-col gap-1 w-full sm:w-auto">
+          <label className="text-gray-600 text-sm">To Date</label>
+          <input
+            type="date"
+            value={toDate}
+            max={new Date().toISOString().split("T")[0]}
+            onChange={(e) => setToDate(e.target.value)}
+            className="p-2 border rounded-lg w-full"
+          />
+        </div>
+
+        <button
+          onClick={applyCustomDateFilter}
+          className="px-4 py-2 bg-[#003f20] text-white rounded-lg hover:bg-[#005f33] transition w-full sm:w-auto"
+        >
+          Apply
+        </button>
+
+        {/* Quick Filters */}
+        <div className="flex flex-wrap gap-2 w-full sm:w-auto">
+          {["last7", "last30", "thisMonth"].map((f) => (
+            <button
+              key={f}
+              onClick={() => applyQuickFilter(f)}
+              className={`px-3 py-1 rounded-lg border ${
+                quickFilter === f
+                  ? "bg-[#003f20] text-white"
+                  : "bg-white text-gray-700"
+              } hover:bg-[#003f20] hover:text-white transition`}
+            >
+              {f === "last7"
+                ? "Last 7 Days"
+                : f === "last30"
+                ? "Last 30 Days"
+                : "This Month"}
+            </button>
+          ))}
+        </div>
       </div>
-    </main>
+
+      {/* Cards */}
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mt-4">
+        <Card
+          title="Total Income"
+          value={`Rs. ${dashboardData.totalIncome.toLocaleString()}`}
+          change="+20.9%"
+          positive
+          loading={loading}
+        />
+        <Card
+          title="Total Expense"
+          value={`Rs. ${dashboardData.totalExpense.toLocaleString()}`}
+          change="-5.2%"
+          positive={false}
+          loading={loading}
+        />
+        <Card
+          title="Balance"
+          value={`Rs. ${dashboardData.balance.toLocaleString()}`}
+          change={dashboardData.balance >= 0 ? "+10%" : "-10%"}
+          positive={dashboardData.balance >= 0}
+          loading={loading}
+        />
+        <Card
+          title="Customers"
+          value={dashboardData.totalCustomers}
+          change="+2.5%"
+          positive
+          loading={loading}
+        />
+        <Card
+          title="Pending Dues"
+          value={`Rs. ${dashboardData.totalPendingDues.toLocaleString()}`}
+          change="-3%"
+          positive={false}
+          loading={loading}
+        />
+        <Card
+          title="Products in Stock"
+          value={dashboardData.totalProducts}
+          change="+5%"
+          positive
+          loading={loading}
+        />
+      </section>
+
+      {/* Chart */}
+      <div className="w-full overflow-x-auto">
+        <Chart
+          months={dashboardData.graph.months}
+          income={dashboardData.graph.income}
+          expense={dashboardData.graph.expense}
+          loading={loading}
+        />
+      </div>
+    </div>
+  </div>
+</main>
+
   );
 }
