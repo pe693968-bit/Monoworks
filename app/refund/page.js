@@ -301,7 +301,7 @@ export default function RefundsPage() {
     <main className="flex bg-gray-100 min-h-screen">
       <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
 
-      <div className="flex-1">
+      <div className="flex-1 overflow-x-auto">
         <MobileHeader toggleSidebar={toggleSidebar} />
 
         <div className="p-4 md:p-6 space-y-6 h-[100vh] overflow-auto">
